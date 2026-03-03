@@ -1,0 +1,28 @@
+# Name of Workflow
+name: Hello Shivali
+
+# runs on a trigger
+on:
+   push:
+        branches: [main]
+
+# these are jobs inside the workflow
+jobs:
+
+  # Name of the job 1
+  greet:
+    # this is github runner, each job needs a runner
+    runs-on: ubuntu-latest
+    steps:
+      - name: say Hello to users
+        run: echo "Hello Dosto"
+
+      - name: say hello to username
+        run: echo "Hello $USER"
+
+    # Name of job 2
+  show-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show version of docker and python
+        run: docker --version && python --version
