@@ -3,8 +3,8 @@ name: Hello Shivali
 
 # runs on a trigger
 on:
-   push:
-        branches: [main]
+   workflow_dispatch:
+     
 
 # these are jobs inside the workflow
 jobs:
