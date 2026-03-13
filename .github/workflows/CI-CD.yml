@@ -1,32 +1,36 @@
-# Name of Workflow that will be displayed in the Actions tab
+# Name of WorkFlow which will be displayed in the Actions tab
 name: CICD
 
-# Manual trigger (Deliver) workflow run when ever user needs it
+# Manual click (delivery) whenever user wants
 on:
   workflow_dispatch:
 
 jobs:
-
+# For every job there must be a seperate runner, it's called parallelism
   code:
     runs-on: ubuntu-latest
     steps:
-      - name: Code Checkout
-        run: echo "Code Clone from GitHub"
+       - name: checkout code
+         run: echo "Code Clone from GitHub"
 
   build:
-    needs: code
+    needs: [code]
+    runs-on: ubuntu-latest
     steps:
-      - name: Build Docker Container
-        run: echo "Docker Container Build"
+      - name: build docker container
+        run: echo "Docker Container build"
 
   test:
-    needs: build
+    needs: [build]
+    runs-on: ubuntu-latest
     steps:
-      - name: Testing Docker Container
-        run: echo "Testing the container"
+      - name: test docker container
+        run: echo " Testing the docker container"
 
   deploy:
-     needs: test 
+    needs: [build, test]
+    runs-on: ubuntu-latest
     steps:
-          - name: Deploying the App
-            run: echo "Docker Compose Deployed the Application"
+      - name: deploy the app 
+        run: echo "Docker compose deployed the app"
+    
