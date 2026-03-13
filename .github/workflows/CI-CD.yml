@@ -4,7 +4,6 @@ name: CICD
 # Manual click (delivery) whenever user wants
 on:
   workflow_dispatch:
-
 jobs:
 # For every job there must be a seperate runner, it's called parallelism
   code:
