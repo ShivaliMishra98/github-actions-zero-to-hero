@@ -4,6 +4,17 @@ name: CICD
 # Manual click (delivery) whenever user wants
 on:
   workflow_dispatch:
+    inputs:
+      environment: 
+        description: This is the environment where the WorkFlow runs
+        default: 'dev'
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+          - staging
+          
 jobs:
 # For every job there must be a seperate runner, it's called parallelism
   code:
@@ -20,6 +31,7 @@ jobs:
         run: echo "Docker Container build"
 
   test:
+    if: inputs.environment == 'dev'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +39,7 @@ jobs:
         run: echo " Testing the docker container"
 
   deploy:
+    if: inputs.environment == 'dev'
     needs: [build, test]
     runs-on: ubuntu-latest
     steps:
